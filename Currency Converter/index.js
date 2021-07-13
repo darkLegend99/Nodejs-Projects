@@ -9,24 +9,35 @@ app.get("/", function(req,res){
     res.sendFile(__dirname+"/index.html");
 });
 
+// var options = {
+//   method: 'GET',
+//   url: 'https://currencyapi-net.p.rapidapi.com/convert',
+//   params: {from: 'BTC', to: 'USD', amount: '1', output: 'JSON'},
+//   headers: {'x-rapidapi-host': 'currencyapi-net.p.rapidapi.com',
+//   "x-rapidapi-key": ""}
+// };
 
-// "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTCUSD?x-ba-key=NTY5ZWM5MzZhMzk4NDVjMGIxMjFmNTZiYjdhN2Y1Njc"
-app.post("/", function(req,res){
-    var options = {
-        url: "https://apiv2.bitcoinaverage.com/convert/global",
-        method: "GET",   
-        qs: {
-            from: req.body.crypto,
-            to: req.body.fiat,
-            amount: 1,
-        },     
-        
-        headers : {
-           'x-ba-key': 'NTY5ZWM5MzZhMzk4NDVjMGIxMjFmNTZiYjdhN2Y1Njc' 
-        }
-    }
-    request(options, function(error,response,body){
-        console.log(body);
+
+
+
+app.post("/", function(req,res){    
+
+    var crypto = req.body.crypto;
+    var fiat = req.body.fiat;
+    var baseUrl = "https://apiv2.bitcoinaverage.com/indices/global/ticker/";
+    var finalUrl = baseUrl+crypto+fiat;
+    request(finalUrl, function(error,response,body){
+        // console.log(body);
+        var data = JSON.parse(body);
+        // console.log(data);
+        var price = data.last; 
+        console.log(price);
+
+        var currentDate = data.display_timestamp;
+        res.write("<p>The current date is: "+ currentDate + "</p>");
+        res.write("<h1>The current price of " + crypto + " is " + price + fiat+ " USD</h1>");
+
+        res.send();
     });
 });
 

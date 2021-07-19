@@ -39,18 +39,30 @@ app.post("/", function(req,res){
         headers: {
             "Authorization": "darklegend1 0ccf33b126488c0f44e7c7e0aebccd09-us6"
         },
-        body: jsonData
+        // body: jsonData
     }
 
     request(options, function(error,response,body){
          if(error){
-             console.log(error);
+            // res.send("There was an error with signup, please try again");
+            res.sendFile(__dirname+"/failure.html");
          }else{
-             console.log(response.statusCode);
+            //  console.log(response.statusCode);
+            if(response.statusCode == 200){
+                res.sendFile(__dirname+"/success.html")
+            }else{
+                res.sendFile(__dirname+"/failure.html");
+            }
          }
     });
 });
 
-app.listen(3000, function(){
+app.post("/failure", function(req,res){
+    // res.sendFile(__dirname+"/signup.html");
+    // or
+    res.redirect("/");
+})
+
+app.listen(process.env.PORT || 3000, function(){
     console.log("Server is listening on port 3000");
 });

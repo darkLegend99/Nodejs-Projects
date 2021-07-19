@@ -39,7 +39,7 @@ app.post("/", function(req,res){
         headers: {
             "Authorization": "darklegend1 0ccf33b126488c0f44e7c7e0aebccd09-us6"
         },
-        // body: jsonData
+        body: jsonData
     }
 
     request(options, function(error,response,body){

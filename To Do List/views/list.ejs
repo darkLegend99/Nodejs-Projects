@@ -1,28 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Do List</title>
-
-    <link rel="stylesheet" href="css/style.css">
-
-</head>
-<body>
-    <!-- <% if(nameOfDay === "Saturday" || nameOfDay === "Sunday"){ %>
-        <h1 style="color: brown;"><%= nameOfDay %> ToDo List</h1>
-    <% }else{ %>
-        <h1 style="color: blue;"><%= nameOfDay %> ToDo List</h1>
-    <% } %> -->
+<%- include("header") -%>
 
     <div class="box" id="heading">
-        <h1> <%= nameOfDay %> </h1>
+        <h1> <%= listTitle %> </h1>
     </div>
-    
-    <!-- <li>Buy Food</li>
-    <li>Cook Food</li>
-    <li>Eat Food</li> -->
 
     <div class="box">       
         <% for(let i=0;i<newListItems.length;i++){ %>
@@ -33,9 +13,8 @@
         <% } %>  
         <form class="item" action="/" method="POST">
             <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
-            <button type="submit" name="button">+</button>
+            <button type="submit" name="list" value=<%= listTitle %>>+</button>
         </form>      
     </div>
 
-</body>
-</html>
+<%- include("footer") -%>
